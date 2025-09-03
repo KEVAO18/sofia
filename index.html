@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sofía — Archivo de Pensamientos</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@0;1&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f8f7f4;
+      color: #333;
+      padding-top: 60px;
+    }
+    h1, .card-title {
+      font-family: 'Libre Baskerville', serif;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    .card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    .card-title {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    .loading {
+      text-align: center;
+      color: #7f8c8d;
+      font-style: italic;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 30px 0;
+      color: #666;
+      font-size: 0.9rem;
+      border-top: 1px solid #eaeaea;
+    }
+    .container {
+      max-width: 1000px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>📚 Sofía</h1>
+    <p class="subtitle">Archivo vivo de ensayos, pensamientos y futuros posibles<br>por <strong>KEVAO18 (Kevin Andrés Orrego Martínez)</strong></p>
+
+    <div id="essays-container" class="row g-4">
+      <div class="col-12 loading">Cargando tus escritos desde GitHub...</div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 — Hecho con pensamiento crítico por <strong>KEVAO18</strong></p>
+    <p><small>Este sitio carga automáticamente los archivos .html del repositorio <a href="https://github.com/KEVAO18/sofia" target="_blank">github.com/KEVAO18/sofia</a></small></p>
+  </footer>
+
+  <script>
+    // Configuración
+    const owner = 'KEVAO18';
+    const repo = 'sofia';
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/`;
+
+    // Elemento donde se mostrarán las tarjetas
+    const container = document.getElementById('essays-container');
+
+    // Palabras clave para extraer títulos y descripciones
+    const titleRegex = /<title[^>]*>(.*?)<\/title>/i;
+    const h1Regex = /<h1[^>]*>(.*?)<\/h1>/i;
+    const descriptionRegex = /<p[^>]*class=["']lead["'][^>]*>(.*?)<\/p>/i;
+
+    // Obtener archivos del repositorio
+    async function loadEssays() {
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('Error al acceder al repositorio');
+
+        const files = await response.json();
+        const htmlFiles = files
+          .filter(file => file.name.endsWith('.html') && file.name !== 'index.html')
+          .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+
+        if (htmlFiles.length === 0) {
+          container.innerHTML = `
+            <div class="col-12 text-center text-muted">
+              <p>No hay ensayos aún. Sube tu primer archivo .html</p>
+            </div>`;
+          return;
+        }
+
+        container.innerHTML = ''; // Limpiar mensaje de carga
+
+        // Para cada archivo HTML, obtener contenido y generar card
+        for (const file of htmlFiles) {
+          try {
+            const contentResponse = await fetch(file.download_url);
+            const content = await contentResponse.text();
+
+            // Extraer título y descripción
+            const titleMatch = content.match(titleRegex) || content.match(h1Regex);
+            const descriptionMatch = content.match(descriptionRegex);
+
+            const title = titleMatch ? cleanHtml(titleMatch[1]) : file.name.replace('.html', '').replace(/-/g, ' ');
+            const description = descriptionMatch ? cleanHtml(descriptionMatch[1]) : 'Un ensayo sobre tecnología, filosofía y futuro.';
+            const updatedAt = new Date(file.updated_at).toLocaleDateString('es-ES', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            });
+
+            // Añadir tarjeta
+            container.innerHTML += `
+              <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">${title}</h5>
+                    <p class="text-muted" style="flex: 1;">${description}</p>
+                    <div class="mt-auto">
+                      <a href="${file.name}" class="btn btn-outline-dark btn-sm">Leer ensayo</a>
+                      <small class="text-muted d-block mt-2">Actualizado: ${updatedAt}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+          } catch (err) {
+            console.warn(`No se pudo cargar ${file.name}:`, err);
+            container.innerHTML += `
+              <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-warning">
+                  <div class="card-body">
+                    <h5 class="card-title text-warning">Error al cargar</h5>
+                    <p class="text-muted">Archivo: ${file.name}</p>
+                  </div>
+                </div>
+              </div>`;
+          }
+        }
+      } catch (err) {
+        container.innerHTML = `
+          <div class="col-12 text-center text-danger">
+            <p>No se pudo cargar el contenido desde GitHub.</p>
+            <small>Verifica que el repositorio sea público y que los archivos estén bien formados.</small>
+          </div>`;
+        console.error(err);
+      }
+    }
+
+    // Limpia HTML básico (etiquetas) de los textos extraídos
+    function cleanHtml(html) {
+      const div = document.createElement('div');
+      div.innerHTML = html;
+      return div.textContent || '';
+    }
+
+    // Cargar ensayos al iniciar
+    document.addEventListener('DOMContentLoaded', loadEssays);
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
