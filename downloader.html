@@ -3,262 +3,417 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Análisis Detallado: El Código Fuente de Sofía</title>
+    <title>Documentación: Descargador Multimedia Python</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@0;0&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* Mantenemos las variables CSS originales */
+        :root {
+            --color-bg-main: #fcfcfc;
+            --color-text-dark: #2c3e50;
+            --color-primary: #3498db;
+            --color-secondary: #27ae60;
+            --color-dialogue-bg: #ffffff;
+            --color-code-bg: #2e3440;
+            --color-code-text: #eceff4;
+            --font-serif: 'Merriweather', serif;
+            --font-sans: 'Roboto', sans-serif;
+        }
+
         body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #f8f7f4;
-            color: #333;
-            line-height: 1.8;
+            font-family: var(--font-sans);
+            background-color: var(--color-bg-main);
+            color: var(--color-text-dark);
+            line-height: 1.6;
+            padding-top: 20px;
         }
+
         h1, h2, h3 {
-            font-family: 'Libre Baskerville', serif;
-            font-weight: bold;
+            font-family: var(--font-serif);
+            font-weight: 700;
         }
+
         h1 {
             text-align: center;
-            margin-bottom: 1.5rem;
-            color: #1a1a1a;
+            margin-bottom: 2rem;
+            color: var(--color-text-dark);
         }
+
         h2 {
-            color: #2c3e50;
-            border-left: 5px solid #3498db;
-            padding-left: 15px;
-            margin-top: 2rem;
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
         }
+
         .container {
-            max-width: 900px;
+            max-width: 960px;
         }
-        .dialogue {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
+
+        /* Mantenemos el estilo de tarjeta original */
+        .card_documentation {
+            background-color: var(--color-dialogue-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            border-left: 5px solid var(--color-secondary);
         }
-        .user {
+        
+        /* Estilos de usuario/IA originales */
+        .user_role {
             font-weight: 700;
-            color: #2980b9;
+            color: var(--color-primary);
         }
-        .ia {
-            color: #2c3e50;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 60px;
-            padding: 30px 0;
-            color: #666;
+        .ia_role {
+            color: var(--color-text-dark);
             font-style: italic;
-            border-top: 1px solid #eaeaea;
         }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+
+        /* Bloques de código */
+        code {
+            background-color: var(--color-code-bg);
+            color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
         }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+
+        pre {
+            background-color: var(--color-code-bg);
+            color: var(--color-code-text);
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 15px;
+            font-size: 0.9em;
+            line-height: 1.4;
         }
+
+        /* Estilo para las citas/Notas */
         blockquote {
             font-style: italic;
             border-left: 4px solid #bdc3c7;
             padding-left: 15px;
             color: #555;
-        }
-        code {
-            background-color: #eee;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-size: 0.9em;
-        }
-        pre {
-            background-color: #282c34;
-            color: #abb2bf;
-            padding: 15px;
-            border-radius: 6px;
-            overflow-x: auto;
             margin-top: 15px;
             margin-bottom: 15px;
+        }
+
+        /* Animación de Comportamiento */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Nuevos estilos para mejorar la documentación sin romper la estética */
+        .function-card {
+            background: #f8f9fa;
+            border-left: 4px solid var(--color-primary);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .architecture-flow {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            margin: 20px 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .step-number {
+            background: var(--color-primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .module-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .module-table th {
+            background: var(--color-primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .module-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .module-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        /* Footer Semántico */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
+            font-size: 0.9em;
+        }
+        
+        /* Navegación interna suave */
+        .doc-nav {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .doc-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .doc-nav a:hover {
+            background-color: #e3f2fd;
         }
     </style>
 </head>
 <body>
 
-    <div class="container my-5">
-        <h1> Análisis Detallado: El Código Fuente de Sofía</h1>
-        <p class="text-center lead mb-4">Desgranando la lógica, la ejecución y los sistemas de seguridad de la aplicación.</p>
-        <p class="text-center text-muted">Diálogo entre un usuario y una IA sobre la estructura, la lógica y la arquitectura de la aplicación de descarga.</p>
-
-        <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-5">
-            <a href="#" class="btn btn-primary btn-lg" role="button" aria-disabled="true">
-                <i class="bi bi-github"></i> 🔗 <span style="font-weight: bold;">Ir al Repositorio (GitHub)</span>
-            </a>
-            <a href="#" class="btn btn-success btn-lg" role="button" aria-disabled="true">
-                <i class="bi bi-download"></i> ⬇️ <span style="font-weight: bold;">Descargar Sofía.exe</span>
-            </a>
-        </div>
-
-        <div class="dialogue fade-in">
-            <h2>1. ⚙️ Visión General y Módulos Importados</h2>
-              
-            <p><span class="user">Usuario:</span> Antes de la lógica, hagamos un repaso de las importaciones. ¿Cuál es el rol exacto de cada una en esta versión final?</p>
-
-            <p><span class="ia">IA:</span> ¡Por supuesto! El éxito de este programa depende de la interacción precisa de seis módulos clave. Podemos dividirlos en tres categorías: Interfaz, Ejecución y Portabilidad.</p>
-
-            <h3>I. Interfaz Gráfica (<code>tkinter</code>)</h3>
-            <ul>
-                            <li><strong><code>import tkinter as tk</code></strong>: El <i>toolkit</i> fundamental para construir la ventana y todos los elementos visuales (botones, campos).</li>
-                            <li><strong><code>from tkinter import filedialog, messagebox, scrolledtext</code></strong>: Importaciones específicas para la interacción.</li>
-                            </ul>
-
-            <h3>II. Ejecución y Sistema</h3>
-            <ul>
-                            <li><strong><code>import subprocess</code></strong>: El motor del programa. Ejecuta el comando <code>yt-dlp</code> como si fuera la terminal.</li>
-                            <li><strong><code>import os</code></strong>: Esencial para manejar rutas de archivo.</li>
-                            </ul>
-
-            <h3>III. Portabilidad (El Fix de PyInstaller)</h3>
-            <p>La función <code>obtener_ruta_binario</code> es el corazón de la portabilidad. Permite que el programa encuentre los ejecutables de <code>yt-dlp</code> y <code>ffmpeg</code> estén o no empaquetados en el EXE:</p>
-            <pre><code>def obtener_ruta_binario(nombre_binario):
-    # Detección de entorno congelado por PyInstaller
-    if getattr(sys, 'frozen', False):
-        # Utiliza el path temporal generado por PyInstaller
-        bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        return os.path.join(bundle_dir, nombre_binario)
-    
-    # Si es un script normal, espera que esté en el PATH
-    return nombre_binario 
-</code></pre>
-        </div>
-
-        <div class="dialogue fade-in">
-            <h2>2. 🧰 Funciones Auxiliares y Lógica Central</h2>
-              
-            <p><span class="user">Usuario:</span> Analicemos las tres funciones de soporte: <code>obtener_ruta_binario</code>, <code>generar_opciones_ytdlp</code> y <code>limpiar_salida_error</code>. Estas definen la robustez del programa.</p>
-
-            <p><span class="ia">IA:</span> Absolutamente. Estas son la inteligencia que traduce la interfaz y gestiona la infraestructura subyacente.</p>
-
-            <h4>Función 1: <code>obtener_ruta_binario(nombre_binario)</code></h4>
-            <blockquote>
-                                        <strong>Estrategia Antidistribución:</strong> Resuelve el problema de la portabilidad, como se vio en el fragmento anterior.
-                                        </blockquote>
-
-            <h4>Función 2: <code>generar_opciones_ytdlp(carpeta_destino, modo, calidad_video)</code></h4>
-            <blockquote>
-                                        <strong>Traductor de Opciones:</strong> Construye la lista de argumentos que se pasarán a la línea de comandos de <code>yt-dlp</code>. Observa cómo se genera el filtro dinámico para la calidad de video:
-                                        </blockquote>
-            <pre><code># Fragmento de la función generar_opciones_ytdlp
-elif modo == 'video':
-    if calidad_video == 'Mejor Disponible':
-        formato_str = 'bestvideo+bestaudio/best'
-    else:
-        # Filtra por la altura máxima (ej: 720p -> height&lt;=720)
-        altura = calidad_video.replace('p', '')
-        formato_str = f'bestvideo[height&lt;={altura}]+bestaudio/best'
+    <header class="container">
+        <h1>Documentación Técnica: Descargador Multimedia Python</h1>
+        <p class="text-center lead mb-4">Análisis completo del script de descarga con interfaz Tkinter</p>
         
-    return [
-        '--format', formato_str, 
-        '--recode-video', 'mp4', # Forzar la fusión y salida MP4
-        '--output', output_path
-    ]
-</code></pre>
-
-            <h4>Función 3: <code>limpiar_salida_error(stderr_output)</code></h4>
-            <blockquote>
-                                        <strong>Filtro de Ruido:</strong> Filtra la salida de error (<code>stderr</code>) de <code>yt-dlp</code> para eliminar advertencias (<code>WARNING</code>) y centrarse en mostrar solo los mensajes de 'ERROR' relevantes.
-                                        </blockquote>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-5">
+            <a href="#" class="btn btn-primary btn-lg" role="button">
+                <i class="bi bi-code-slash"></i> 🔗 <span style="font-weight: bold;">Repositorio del Código</span>
+            </a>
+            <a href="#" class="btn btn-success btn-lg" role="button">
+                <i class="bi bi-download"></i> ⬇️ <span style="font-weight: bold;">Descargar Script</span>
+            </a>
         </div>
+        <hr>
+    </header>
 
-        <div class="dialogue fade-in">
-            <h2>3. 🏃‍♂️ Funciones de Ejecución (<code>subprocess</code> y Errores)</h2>
-              
-            <p><span class="user">Usuario:</span> Hablemos de <code>descargar_audio_unico</code> y <code>descargar_audios_lote</code>. Aquí es donde se maneja la ejecución y los fallos. ¿Cuáles son los siete tipos de errores que el código está preparado para manejar?</p>
+    <main class="container">
+        
+        <!-- Navegación interna -->
+        <nav class="doc-nav text-center fade-in">
+            <a href="#overview">Visión General</a> •
+            <a href="#architecture">Arquitectura</a> •
+            <a href="#functions">Funciones</a> •
+            <a href="#gui">Interfaz</a>
+        </nav>
 
-            <p><span class="ia">IA:</span> Correcto. Estas funciones son el <strong>motor de comando</strong> y el <strong>bloque de seguridad</strong> del programa. El corazón es el bloque <code>try...except</code> en <code>descargar_audio_unico</code>:</p>
-
-            <pre><code># Bloque de ejecución y manejo de errores
-try:
-    comando = [obtener_ruta_binario('yt-dlp'), url] + opciones_ytdlp
-    proceso = subprocess.run(
-        comando, 
-        check=True,                  # Lanza CalledProcessError si falla
-        text=True, capture_output=True, 
-        encoding='utf-8', 
-        timeout=600                  # Tiempo de espera máximo (10 min)
-    )
-    text_output.insert(tk.END, "✅ Descarga completada.\n")
-    
-except subprocess.CalledProcessError as e:
-    error_limpio = limpiar_salida_error(e.stderr)
-    text_output.insert(tk.END, f"❌ Error al descargar: {error_limpio}\n")
-except FileNotFoundError:
-    messagebox.showerror("Error", "No se encontró 'yt-dlp'.")
-except subprocess.TimeoutExpired:
-    messagebox.showerror("Error", "Tiempo de espera agotado.")
-except Exception as e:
-    messagebox.showerror("Error", f"Ocurrió un error inesperado: {e}")
-</code></pre>
-
-            <h3>La Matriz de Siete Errores Manejados</h3>
-            <p>El bloque <code>try...except</code> maneja siete posibles fallos que cubren problemas de código, de <code>yt-dlp</code> y de infraestructura:</p>
-            <ol>
-                            <li><strong><code>subprocess.CalledProcessError</code></strong>: Error funcional (URL no disponible, formato no encontrado).</li>
-                            <li><strong><code>FileNotFoundError</code></strong>: Error de infraestructura (no se encuentra el ejecutable).</li>
-                            <li><strong><code>subprocess.TimeoutExpired</code></strong>: El proceso excedió los 10 minutos.</li>
-                            <li><strong><code>Exception as e</code></strong>: Captura genérica de cualquier error imprevisto.</li>
-                            <li><strong>Errores de URL o Carpeta No Válida</strong> (Manejados en <code>iniciar_descarga</code> con <code>messagebox.showerror</code>).</li>
-                            <li><strong>Archivo de URLs No Encontrado/Vacío</strong> (Manejado en <code>descargar_audios_lote</code>).</li>
-                            </ol>
-
-            <h4>Advertencia Crítica: La Necesidad de <code>threading</code></h4>
-            <p>Es vital señalar que las funciones <strong><code>iniciar_descarga_unico</code></strong> e <strong><code>iniciar_descarga</code></strong> en este código <strong>llaman a las funciones de descarga directamente</strong>. Puesto que <code>subprocess.run()</code> es un comando de bloqueo, si el código se ejecuta tal cual, la interfaz <strong>se congelará</strong> hasta que la descarga termine. La implementación correcta requiere envolver la llamada en un hilo separado (usando <code>threading.Thread</code>) para mantener la interfaz receptiva.</p>
+        <!-- Visión General -->
+        <section id="overview" class="card_documentation fade-in">
+            <h2>📋 Visión General del Proyecto</h2>
+            <p><span class="user_role">Usuario:</span> ¿Qué propósito cumple esta aplicación y qué problemas resuelve?</p>
+            <p><span class="ia_role">IA:</span> Esta aplicación proporciona una interfaz gráfica amigable para descargar contenido multimedia de diversas plataformas, abstraciendo la complejidad de los comandos de <code>yt-dlp</code> y permitiendo a usuarios no técnicos realizar descargas de audio y video fácilmente.</p>
             
+            <h3>Características Principales</h3>
+            <ul>
+                <li><strong>Interfaz intuitiva</strong> desarrollada con Tkinter</li>
+                <li><strong>Descargas flexibles</strong> individuales y por lotes</li>
+                <li><strong>Soporte múltiple formatos</strong>: MP3 (audio) y MP4 (video)</li>
+                <li><strong>Selección de calidad</strong> para descargas de video</li>
+                <li><strong>Manejo robusto de errores</strong> con logs detallados</li>
+            </ul>
+        </section>
 
+        <!-- Arquitectura -->
+        <section id="architecture" class="card_documentation fade-in">
+            <h2>🏗️ Arquitectura del Sistema</h2>
+            <p><span class="user_role">Usuario:</span> ¿Cómo está estructurada la aplicación y cuáles son sus componentes principales?</p>
+            <p><span class="ia_role">IA:</span> La aplicación sigue una arquitectura modular con separación clara entre la interfaz de usuario y la lógica de negocio, utilizando el patrón de ejecución de comandos externos.</p>
+            
+            <div class="architecture-flow">
+                <h4>Flujo de Ejecución</h4>
+                
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <strong>Interfaz de Usuario</strong><br>
+                        El usuario configura parámetros y proporciona URLs
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <strong>Validación de Entrada</strong><br>
+                        Verificación de URLs y parámetros de configuración
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <strong>Generación de Comandos</strong><br>
+                        Construcción de opciones específicas para yt-dlp
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <strong>Ejecución Externa</strong><br>
+                        Llamada a yt-dlp mediante subprocess
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div>
+                        <strong>Manejo de Resultados</strong><br>
+                        Procesamiento de salida y actualización de la interfaz
+                    </div>
+                </div>
+            </div>
 
-[Image of Python Threading Diagram]
+            <h3>Módulos y Dependencias</h3>
+            <table class="module-table">
+                <thead>
+                    <tr>
+                        <th>Módulo</th>
+                        <th>Propósito</th>
+                        <th>Uso en la Aplicación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>tkinter</code></td>
+                        <td>Interfaz gráfica</td>
+                        <td>Ventanas, controles y gestión de eventos</td>
+                    </tr>
+                    <tr>
+                        <td><code>subprocess</code></td>
+                        <td>Ejecución externa</td>
+                        <td>Llamada a yt-dlp con parámetros</td>
+                    </tr>
+                    <tr>
+                        <td><code>os</code></td>
+                        <td>Sistema de archivos</td>
+                        <td>Gestión de rutas y verificación de directorios</td>
+                    </tr>
+                    <tr>
+                        <td><code>sys</code></td>
+                        <td>Funciones del sistema</td>
+                        <td>Detección de entorno PyInstaller</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
+        <!-- Funciones Principales -->
+        <section id="functions" class="card_documentation fade-in">
+            <h2>⚙️ Funciones Principales</h2>
+            <p><span class="user_role">Usuario:</span> ¿Cuáles son las funciones clave y cómo trabajan entre sí?</p>
+            <p><span class="ia_role">IA:</span> La aplicación está organizada alrededor de funciones especializadas que manejan aspectos específicos del proceso de descarga.</p>
+            
+            <div class="function-card">
+                <h4><code>descargar_audio_unico(url, carpeta_destino, modo, calidad, text_output)</code></h4>
+                <p><strong>Propósito:</strong> Descarga un único archivo multimedia desde una URL específica.</p>
+                <p><strong>Flujo:</strong> Valida entrada → Genera opciones → Ejecuta yt-dlp → Maneja resultados/errores</p>
+                <p><strong>Manejo de errores:</strong> Captura excepciones de subprocess y muestra mensajes contextualizados al usuario.</p>
+            </div>
+            
+            <div class="function-card">
+                <h4><code>descargar_audios_lote(archivo_urls, carpeta_destino, modo, calidad, text_output)</code></h4>
+                <p><strong>Propósito:</strong> Procesa múltiples URLs desde un archivo de texto.</p>
+                <p><strong>Flujo:</strong> Lee archivo → Parsea URLs → Itera sobre cada URL → Delega a descarga individual</p>
+                <p><strong>Ventaja:</strong> Permite procesamiento por lotes con un solo comando.</p>
+            </div>
+            
+            <div class="function-card">
+                <h4><code>generar_opciones_ytdlp(carpeta_destino, modo, calidad_video)</code></h4>
+                <p><strong>Propósito:</strong> Traduce parámetros de usuario a opciones de línea de comandos para yt-dlp.</p>
+                <p><strong>Ejemplo:</strong> Convierte "720p" a <code>bestvideo[height<=720]+bestaudio/best</code></p>
+                <p><strong>Flexibilidad:</strong> Se adapta automáticamente a las resoluciones disponibles en el contenido fuente.</p>
+            </div>
 
-        </div>
+            <blockquote>
+                <strong>Nota sobre el manejo de calidad:</strong> El uso de filtros como <code>height<=720</code> permite que el script se adapte a contenido con resoluciones no exactas, siempre seleccionando la mejor opción disponible dentro del límite establecido.
+            </blockquote>
+        </section>
 
-        <div class="dialogue fade-in">
-            <h2>4. 🎨 La Interfaz de Usuario (Tkinter)</h2>
-              
-            <p><span class="user">Usuario:</span> Hablemos de la interfaz. ¿Cómo organiza el código la GUI y qué variables controlan el estado de la aplicación?</p>
+        <!-- Interfaz Gráfica -->
+        <section id="gui" class="card_documentation fade-in">
+            <h2>🎨 Interfaz Gráfica de Usuario</h2>
+            <p><span class="user_role">Usuario:</span> ¿Cómo está organizada la interfaz y qué componentes de Tkinter utiliza?</p>
+            <p><span class="ia_role">IA:</span> La interfaz está estructurada en secciones lógicas utilizando los componentes estándar de Tkinter, organizados para una experiencia de usuario intuitiva.</p>
+            
+            <h3>Estructura de la Interfaz</h3>
+            <ul>
+                <li><strong>Configuración Global</strong> - Parámetros que afectan todas las descargas</li>
+                <li><strong>Descarga Única</strong> - Para procesar una URL individual</li>
+                <li><strong>Descarga por Lotes</strong> - Para procesar múltiples URLs desde archivo</li>
+                <li><strong>Registro de Actividad</strong> - Área de visualización de logs y progreso</li>
+            </ul>
+            
+            <h3>Componentes Tkinter Utilizados</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                        <li><code>LabelFrame</code> - Agrupación semántica</li>
+                        <li><code>Entry</code> - Campos de texto para URLs</li>
+                        <li><code>Button</code> - Botones de acción</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                        <li><code>Radiobutton</code> - Selección de modo</li>
+                        <li><code>OptionMenu</code> - Selección de calidad</li>
+                        <li><code>ScrolledText</code> - Área de logs con scroll</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <blockquote>
+                La organización en <code>LabelFrame</code> permite agrupar controles relacionados visualmente, mejorando la usabilidad y haciendo la interfaz más intuitiva para usuarios no técnicos.
+            </blockquote>
+        </section>
 
-            <p><span class="ia">IA:</span> La interfaz utiliza una estructura jerárquica clara y variables de control para gestionar el estado de la aplicación. Las variables <code>modo_descarga</code> y <code>calidad_descarga</code> son fundamentales, siendo del tipo <code>tk.StringVar</code> para ligar el estado del widget a la lógica.</p>
+    </main>
 
-            <pre><code># Inicialización de variables clave
-modo_descarga = tk.StringVar(ventana, value='audio')
-calidad_descarga = tk.StringVar(ventana, value='Mejor Disponible')
-opciones_calidad = ['Mejor Disponible', '1080p', '720p', '480p']
-
-# Asignación en la interfaz
-tk.Radiobutton(frame_global, text="Solo Audio (MP3)", variable=modo_descarga, value="audio")
-combo_calidad = tk.OptionMenu(frame_global, calidad_descarga, *opciones_calidad)
-
-# Área de Logs
-text_output = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, height=15)
-</code></pre>
-
-            <h3>A. Estructura de Marcos (<code>LabelFrame</code>)</h3>
-            <p>Se utilizan tres <code>tk.LabelFrame</code> para agrupar visualmente la configuración, mejorando la usabilidad: <strong><code>frame_global</code></strong>, <strong><code>frame_unico</code></strong> y <strong><code>frame_batch</code></strong>.</p>
-
-            <h3>B. El Área de Logs (<code>ScrolledText</code>)</h3>
-            <p>El widget <strong><code>text_output</code></strong> es el registro en vivo de la actividad, usando <strong><code>text_output.see(tk.END)</code></strong> para asegurar el desplazamiento automático y visible del progreso.</p>
-        </div>
-
-    </div>
-
-    <footer class="footer">
-        <p>© 2025 — Hecho con pensamiento crítico por <strong>KEVAO18 (Kevin Andrés Orrego Martínez)</strong></p>
+    <footer class="container">
+        <p>© 2025 — Documentación Técnica del Descargador Multimedia Python</p>
+        <p>Desarrollado con Tkinter y yt-dlp — Código de ejemplo para fines educativos</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Animaciones al hacer scroll
+        // JS para el comportamiento de la animación fade-in
         document.addEventListener("DOMContentLoaded", function () {
             const fadeElements = document.querySelectorAll(".fade-in");
 
@@ -266,11 +421,29 @@ text_output = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, height=15)
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { 
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
 
             fadeElements.forEach(el => observer.observe(el));
+            
+            // Smooth scrolling para navegación interna
+            document.querySelectorAll('.doc-nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
         });
     </script>
 
