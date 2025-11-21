@@ -110,14 +110,14 @@
 
             <h3>I. Interfaz Gráfica (<code>tkinter</code>)</h3>
             <ul>
-                            <li>&lt;strong&gt;<code>import tkinter as tk</code>&lt;/strong&gt;: El <i>toolkit</i> fundamental para construir la ventana y todos los elementos visuales (botones, campos).</li>
-                            <li>&lt;strong&gt;<code>from tkinter import filedialog, messagebox, scrolledtext</code>&lt;/strong&gt;: Importaciones específicas para la interacción.</li>
+                            <li><strong><code>import tkinter as tk</code></strong>: El <i>toolkit</i> fundamental para construir la ventana y todos los elementos visuales (botones, campos).</li>
+                            <li><strong><code>from tkinter import filedialog, messagebox, scrolledtext</code></strong>: Importaciones específicas para la interacción.</li>
                             </ul>
 
             <h3>II. Ejecución y Sistema</h3>
             <ul>
-                            <li>&lt;strong&gt;<code>import subprocess</code>&lt;/strong&gt;: El motor del programa. Ejecuta el comando <code>yt-dlp</code> como si fuera la terminal.</li>
-                            <li>&lt;strong&gt;<code>import os</code>&lt;/strong&gt;: Esencial para manejar rutas de archivo.</li>
+                            <li><strong><code>import subprocess</code></strong>: El motor del programa. Ejecuta el comando <code>yt-dlp</code> como si fuera la terminal.</li>
+                            <li><strong><code>import os</code></strong>: Esencial para manejar rutas de archivo.</li>
                             </ul>
 
             <h3>III. Portabilidad (El Fix de PyInstaller)</h3>
@@ -143,13 +143,13 @@
 
             <h4>Función 1: <code>obtener_ruta_binario(nombre_binario)</code></h4>
             <blockquote>
-                        &lt;strong&gt;Estrategia Antidistribución:&lt;/strong&gt; Resuelve el problema de la portabilidad, como se vio en el fragmento anterior.
-                        </blockquote>
+                                        <strong>Estrategia Antidistribución:</strong> Resuelve el problema de la portabilidad, como se vio en el fragmento anterior.
+                                        </blockquote>
 
             <h4>Función 2: <code>generar_opciones_ytdlp(carpeta_destino, modo, calidad_video)</code></h4>
             <blockquote>
-                        &lt;strong&gt;Traductor de Opciones:&lt;/strong&gt; Construye la lista de argumentos que se pasarán a la línea de comandos de <code>yt-dlp</code>. Observa cómo se genera el filtro dinámico para la calidad de video:
-                        </blockquote>
+                                        <strong>Traductor de Opciones:</strong> Construye la lista de argumentos que se pasarán a la línea de comandos de <code>yt-dlp</code>. Observa cómo se genera el filtro dinámico para la calidad de video:
+                                        </blockquote>
             <pre><code># Fragmento de la función generar_opciones_ytdlp
 elif modo == 'video':
     if calidad_video == 'Mejor Disponible':
@@ -168,8 +168,8 @@ elif modo == 'video':
 
             <h4>Función 3: <code>limpiar_salida_error(stderr_output)</code></h4>
             <blockquote>
-                        &lt;strong&gt;Filtro de Ruido:&lt;/strong&gt; Filtra la salida de error (<code>stderr</code>) de <code>yt-dlp</code> para eliminar advertencias (<code>WARNING</code>) y centrarse en mostrar solo los mensajes de 'ERROR' relevantes.
-                        </blockquote>
+                                        <strong>Filtro de Ruido:</strong> Filtra la salida de error (<code>stderr</code>) de <code>yt-dlp</code> para eliminar advertencias (<code>WARNING</code>) y centrarse en mostrar solo los mensajes de 'ERROR' relevantes.
+                                        </blockquote>
         </div>
 
         <div class="dialogue fade-in">
@@ -177,7 +177,7 @@ elif modo == 'video':
               
             <p><span class="user">Usuario:</span> Hablemos de <code>descargar_audio_unico</code> y <code>descargar_audios_lote</code>. Aquí es donde se maneja la ejecución y los fallos. ¿Cuáles son los siete tipos de errores que el código está preparado para manejar?</p>
 
-            <p><span class="ia">IA:</span> Correcto. Estas funciones son el &lt;strong&gt;motor de comando&lt;/strong&gt; y el &lt;strong&gt;bloque de seguridad&lt;/strong&gt; del programa. El corazón es el bloque <code>try...except</code> en <code>descargar_audio_unico</code>:</p>
+            <p><span class="ia">IA:</span> Correcto. Estas funciones son el <strong>motor de comando</strong> y el <strong>bloque de seguridad</strong> del programa. El corazón es el bloque <code>try...except</code> en <code>descargar_audio_unico</code>:</p>
 
             <pre><code># Bloque de ejecución y manejo de errores
 try:
@@ -205,19 +205,21 @@ except Exception as e:
             <h3>La Matriz de Siete Errores Manejados</h3>
             <p>El bloque <code>try...except</code> maneja siete posibles fallos que cubren problemas de código, de <code>yt-dlp</code> y de infraestructura:</p>
             <ol>
-                            <li>&lt;strong&gt;<code>subprocess.CalledProcessError</code>&lt;/strong&gt;: Error funcional (URL no disponible, formato no encontrado).</li>
-                            <li>&lt;strong&gt;<code>FileNotFoundError</code>&lt;/strong&gt;: Error de infraestructura (no se encuentra el ejecutable).</li>
-                            <li>&lt;strong&gt;<code>subprocess.TimeoutExpired</code>&lt;/strong&gt;: El proceso excedió los 10 minutos.</li>
-                            <li>&lt;strong&gt;<code>Exception as e</code>&lt;/strong&gt;: Captura genérica de cualquier error imprevisto.</li>
-                            <li>&lt;strong&gt;Errores de URL o Carpeta No Válida&lt;/strong&gt; (Manejados en <code>iniciar_descarga</code> con <code>messagebox.showerror</code>).</li>
-                            <li>&lt;strong&gt;Archivo de URLs No Encontrado/Vacío&lt;/strong&gt; (Manejado en <code>descargar_audios_lote</code>).</li>
+                            <li><strong><code>subprocess.CalledProcessError</code></strong>: Error funcional (URL no disponible, formato no encontrado).</li>
+                            <li><strong><code>FileNotFoundError</code></strong>: Error de infraestructura (no se encuentra el ejecutable).</li>
+                            <li><strong><code>subprocess.TimeoutExpired</code></strong>: El proceso excedió los 10 minutos.</li>
+                            <li><strong><code>Exception as e</code></strong>: Captura genérica de cualquier error imprevisto.</li>
+                            <li><strong>Errores de URL o Carpeta No Válida</strong> (Manejados en <code>iniciar_descarga</code> con <code>messagebox.showerror</code>).</li>
+                            <li><strong>Archivo de URLs No Encontrado/Vacío</strong> (Manejado en <code>descargar_audios_lote</code>).</li>
                             </ol>
 
             <h4>Advertencia Crítica: La Necesidad de <code>threading</code></h4>
-            <p>Es vital señalar que las funciones &lt;strong&gt;<code>iniciar_descarga_unico</code>&lt;/strong&gt; e &lt;strong&gt;<code>iniciar_descarga</code>&lt;/strong&gt; en este código &lt;strong&gt;llaman a las funciones de descarga directamente&lt;/strong&gt;. Puesto que <code>subprocess.run()</code> es un comando de bloqueo, si el código se ejecuta tal cual, la interfaz &lt;strong&gt;se congelará&lt;/strong&gt; hasta que la descarga termine. La implementación correcta requiere envolver la llamada en un hilo separado (usando <code>threading.Thread</code>) para mantener la interfaz receptiva.</p>
-             
+            <p>Es vital señalar que las funciones <strong><code>iniciar_descarga_unico</code></strong> e <strong><code>iniciar_descarga</code></strong> en este código <strong>llaman a las funciones de descarga directamente</strong>. Puesto que <code>subprocess.run()</code> es un comando de bloqueo, si el código se ejecuta tal cual, la interfaz <strong>se congelará</strong> hasta que la descarga termine. La implementación correcta requiere envolver la llamada en un hilo separado (usando <code>threading.Thread</code>) para mantener la interfaz receptiva.</p>
+            
+
 
 [Image of Python Threading Diagram]
+
 
         </div>
 
@@ -242,16 +244,16 @@ text_output = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, height=15)
 </code></pre>
 
             <h3>A. Estructura de Marcos (<code>LabelFrame</code>)</h3>
-            <p>Se utilizan tres <code>tk.LabelFrame</code> para agrupar visualmente la configuración, mejorando la usabilidad: &lt;strong&gt;<code>frame_global</code>&lt;/strong&gt;, &lt;strong&gt;<code>frame_unico</code>&lt;/strong&gt; y &lt;strong&gt;<code>frame_batch</code>&lt;/strong&gt;.</p>
+            <p>Se utilizan tres <code>tk.LabelFrame</code> para agrupar visualmente la configuración, mejorando la usabilidad: <strong><code>frame_global</code></strong>, <strong><code>frame_unico</code></strong> y <strong><code>frame_batch</code></strong>.</p>
 
             <h3>B. El Área de Logs (<code>ScrolledText</code>)</h3>
-            <p>El widget &lt;strong&gt;<code>text_output</code>&lt;/strong&gt; es el registro en vivo de la actividad, usando &lt;strong&gt;<code>text_output.see(tk.END)</code>&lt;/strong&gt; para asegurar el desplazamiento automático y visible del progreso.</p>
+            <p>El widget <strong><code>text_output</code></strong> es el registro en vivo de la actividad, usando <strong><code>text_output.see(tk.END)</code></strong> para asegurar el desplazamiento automático y visible del progreso.</p>
         </div>
 
     </div>
 
     <footer class="footer">
-        <p>© 2025 — Hecho con pensamiento crítico por &lt;strong&gt;KEVAO18 (Kevin Andrés Orrego Martínez)&lt;/strong&gt;</p>
+        <p>© 2025 — Hecho con pensamiento crítico por <strong>KEVAO18 (Kevin Andrés Orrego Martínez)</strong></p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
