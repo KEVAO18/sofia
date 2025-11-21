@@ -1,231 +1,228 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Análisis Detallado: El Código Fuente de Sofía</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@0;0&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f8f7f4;
-      color: #333;
-      line-height: 1.8;
-    }
-    h1, h2, h3 {
-      font-family: 'Libre Baskerville', serif;
-      font-weight: bold;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #1a1a1a;
-    }
-    h2 {
-      color: #2c3e50;
-      border-left: 5px solid #3498db;
-      padding-left: 15px;
-      margin-top: 2rem;
-    }
-    .container {
-      max-width: 900px;
-    }
-    .dialogue {
-      background-color: #ffffff;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      margin-bottom: 20px;
-    }
-    .user {
-      font-weight: 700;
-      color: #2980b9;
-    }
-    .ia {
-      color: #2c3e50;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 60px;
-      padding: 30px 0;
-      color: #666;
-      font-style: italic;
-      border-top: 1px solid #eaeaea;
-    }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    blockquote {
-      font-style: italic;
-      border-left: 4px solid #bdc3c7;
-      padding-left: 15px;
-      color: #555;
-    }
-    code {
-      background-color: #eee;
-      padding: 2px 4px;
-      border-radius: 3px;
-      font-size: 0.9em;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Análisis Detallado: El Código Fuente de Sofía</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@0;0&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+            line-height: 1.8;
+        }
+        h1, h2, h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: bold;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+        h2 {
+            color: #2c3e50;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+            margin-top: 2rem;
+        }
+        .container {
+            max-width: 900px;
+        }
+        .dialogue {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        .user {
+            font-weight: 700;
+            color: #2980b9;
+        }
+        .ia {
+            color: #2c3e50;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px 0;
+            color: #666;
+            font-style: italic;
+            border-top: 1px solid #eaeaea;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        blockquote {
+            font-style: italic;
+            border-left: 4px solid #bdc3c7;
+            padding-left: 15px;
+            color: #555;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container my-5">
-    <h1> Análisis Detallado: El Código Fuente de Sofía</h1>
-    <p class="text-center lead mb-4">Desgranando la lógica, la ejecución y los sistemas de seguridad de la aplicación.</p>
-    <p class="text-center text-muted">Diálogo entre un usuario y una IA sobre la estructura, la lógica y la arquitectura de la aplicación de descarga.</p>
+    <div class="container my-5">
+        <h1> Análisis Detallado: El Código Fuente de Sofía</h1>
+        <p class="text-center lead mb-4">Desgranando la lógica, la ejecución y los sistemas de seguridad de la aplicación.</p>
+        <p class="text-center text-muted">Diálogo entre un usuario y una IA sobre la estructura, la lógica y la arquitectura de la aplicación de descarga.</p>
 
-    <div class="dialogue fade-in">
-      <h2>1. ⚙️ Visión General y Módulos Importados</h2>
-      
-      <p><span class="user">Usuario:</span> Antes de la lógica, hagamos un repaso de las importaciones. ¿Cuál es el rol exacto de cada una en esta versión final?</p>
+        <div class="dialogue fade-in">
+            <h2>1. ⚙️ Visión General y Módulos Importados</h2>
+              
+            <p><span class="user">Usuario:</span> Antes de la lógica, hagamos un repaso de las importaciones. ¿Cuál es el rol exacto de cada una en esta versión final?</p>
 
-      <p><span class="ia">IA:</span> ¡Por supuesto! El éxito de este programa depende de la interacción precisa de seis módulos clave. Podemos dividirlos en tres categorías: Interfaz, Ejecución y Portabilidad.</p>
+            <p><span class="ia">IA:</span> ¡Por supuesto! El éxito de este programa depende de la interacción precisa de seis módulos clave. Podemos dividirlos en tres categorías: Interfaz, Ejecución y Portabilidad.</p>
 
-      <h3>I. Interfaz Gráfica (`tkinter`)</h3>
-      <ul>
-            <li>**`import tkinter as tk`**: El *toolkit* fundamental para construir la ventana y todos los elementos visuales (botones, campos).</li>
-            <li>**`from tkinter import filedialog, messagebox, scrolledtext`**: Importaciones específicas para la interacción:
-                <ul>
-                    <li>**`filedialog`**: Permite al usuario seleccionar carpetas o archivos mediante la ventana nativa del sistema operativo.</li>
-                    <li>**`messagebox`**: Utilizado para mostrar mensajes de advertencia o error al usuario de manera clara (ej. "URL inválida").</li>
-                    <li>**`scrolledtext`**: Un widget avanzado que combina un área de texto con barras de desplazamiento automáticas, perfecto para el registro de logs de actividad.</li>
-                </ul>
-            </li>
-      </ul>
+            <h3>I. Interfaz Gráfica (`tkinter`)</h3>
+            <ul>
+                            <li>**`import tkinter as tk`**: El *toolkit* fundamental para construir la ventana y todos los elementos visuales (botones, campos).</li>
+                            <li>**`from tkinter import filedialog, messagebox, scrolledtext`**: Importaciones específicas para la interacción:
+                                    <ul>
+                                            <li>**`filedialog`**: Permite al usuario seleccionar carpetas o archivos mediante la ventana nativa del sistema operativo.</li>
+                                            <li>**`messagebox`**: Utilizado para mostrar mensajes de advertencia o error al usuario de manera clara (ej. "URL inválida").</li>
+                                            <li>**`scrolledtext`**: Un widget avanzado que combina un área de texto con barras de desplazamiento automáticas, perfecto para el registro de logs de actividad.</li>
+                                            </ul>
+                                </li>
+                            </ul>
 
-      <h3>II. Ejecución y Sistema</h3>
-      <ul>
-            <li>**`import subprocess`**: El motor del programa. Es el módulo que permite ejecutar el comando `yt-dlp` como si lo hiciéramos directamente en la terminal, incluyendo la captura de su salida.</li>
-            <li>**`import os`**: Esencial para manejar rutas de archivo. Asegura que la construcción de la carpeta de destino (`os.path.join`) funcione correctamente en cualquier sistema operativo.</li>
-      </ul>
+            <h3>II. Ejecución y Sistema</h3>
+            <ul>
+                            <li>**`import subprocess`**: El motor del programa. Es el módulo que permite ejecutar el comando `yt-dlp` como si lo hiciéramos directamente en la terminal, incluyendo la captura de su salida.</li>
+                            <li>**`import os`**: Esencial para manejar rutas de archivo. Asegura que la construcción de la carpeta de destino (`os.path.join`) funcione correctamente en cualquier sistema operativo.</li>
+                            </ul>
 
-      <h3>III. Portabilidad (El Fix de PyInstaller)</h3>
-      <ul>
-            <li>**`import sys`**: Necesario para el truco de `getattr(sys, 'frozen', False)` dentro de la función `obtener_ruta_binario`, lo que permite que el ejecutable funcione correctamente después de ser empaquetado.</li>
-      </ul>
-    </div>
+            <h3>III. Portabilidad (El Fix de PyInstaller)</h3>
+            <ul>
+                            <li>**`import sys`**: Necesario para el truco de `getattr(sys, 'frozen', False)` dentro de la función `obtener_ruta_binario`, lo que permite que el ejecutable funcione correctamente después de ser empaquetado.</li>
+                            </ul>
+        </div>
 
-    <div class="dialogue fade-in">
-      <h2>2. 🧰 Funciones Auxiliares y Lógica Central</h2>
-      
-      <p><span class="user">Usuario:</span> Analicemos las tres funciones de soporte: <code>obtener_ruta_binario</code>, <code>generar_opciones_ytdlp</code> y <code>limpiar_salida_error</code>. Estas definen la robustez del programa.</p>
+        <div class="dialogue fade-in">
+            <h2>2. 🧰 Funciones Auxiliares y Lógica Central</h2>
+              
+            <p><span class="user">Usuario:</span> Analicemos las tres funciones de soporte: <code>obtener_ruta_binario</code>, <code>generar_opciones_ytdlp</code> y <code>limpiar_salida_error</code>. Estas definen la robustez del programa.</p>
 
-      <p><span class="ia">IA:</span> Absolutamente. Estas son la inteligencia que traduce la interfaz y gestiona la infraestructura subyacente.</p>
+            <p><span class="ia">IA:</span> Absolutamente. Estas son la inteligencia que traduce la interfaz y gestiona la infraestructura subyacente.</p>
 
-      <h4>Función 1: <code>obtener_ruta_binario(nombre_binario)</code></h4>
-      <blockquote>
-        **Estrategia Antidistribución:** Esta función resuelve el problema de la portabilidad al determinar la ruta de los binarios externos (`yt-dlp.exe`, `ffmpeg.exe`).
-      </blockquote>
-      <ul>
-            <li>**Detección de Congelamiento:** La línea <code>if getattr(sys, 'frozen', False):</code> comprueba si el código se está ejecutando como un programa **congelado** (el `.exe` creado por PyInstaller).</li>
-            <li>**Construcción de la Ruta Temporal:** Si está congelado, usa <code>sys._MEIPASS</code> (la variable temporal de PyInstaller) para construir la ruta absoluta. Si no está congelado, simplemente devuelve el nombre del binario, asumiendo que está en el **PATH**.</li>
-      </ul>
+            <h4>Función 1: <code>obtener_ruta_binario(nombre_binario)</code></h4>
+            <blockquote>
+                        **Estrategia Antidistribución:** Esta función resuelve el problema de la portabilidad al determinar la ruta de los binarios externos (`yt-dlp.exe`, `ffmpeg.exe`).
+                        </blockquote>
+            <ul>
+                            <li>**Detección de Congelamiento:** La línea <code>if getattr(sys, 'frozen', False):</code> comprueba si el código se está ejecutando como un programa **congelado** (el `.exe` creado por PyInstaller).</li>
+                            <li>**Construcción de la Ruta Temporal:** Si está congelado, usa <code>sys._MEIPASS</code> (la variable temporal de PyInstaller) para construir la ruta absoluta. Si no está congelado, simplemente devuelve el nombre del binario, asumiendo que está en el **PATH**.</li>
+                            </ul>
 
-      <h4>Función 2: <code>generar_opciones_ytdlp(carpeta_destino, modo, calidad_video)</code></h4>
-      <blockquote>
-        **Traductor de Opciones:** Construye la lista de argumentos que se pasarán a la línea de comandos de `yt-dlp`.
-      </blockquote>
-      <ul>
-            <li>**Modo 'audio'**: Devuelve *flags* fijos: `-x` (extraer audio), `--audio-format mp3` y `--audio-quality 0` (mejor calidad), además de `--format bestaudio/best` para garantizar la compatibilidad.</li>
-            <li>**Modo 'video'**: Introduce el **filtro dinámico** de resolución. Utiliza una cadena F-string para construir el filtro de resolución (ej. `bestvideo[height<=480]+bestaudio/best`), limitando la calidad y reduciendo la carga de **FFmpeg** (invocado por `--recode-video mp4`).</li>
-      </ul>
+            <h4>Función 2: <code>generar_opciones_ytdlp(carpeta_destino, modo, calidad_video)</code></h4>
+            <blockquote>
+                        **Traductor de Opciones:** Construye la lista de argumentos que se pasarán a la línea de comandos de `yt-dlp`.
+                        </blockquote>
+            <ul>
+                            <li>**Modo 'audio'**: Devuelve *flags* fijos: `-x` (extraer audio), `--audio-format mp3` y `--audio-quality 0` (mejor calidad), además de `--format bestaudio/best` para garantizar la compatibilidad.</li>
+                            <li>**Modo 'video'**: Introduce el **filtro dinámico** de resolución. Utiliza una cadena F-string para construir el filtro de resolución (ej. `bestvideo[height<=480]+bestaudio/best`), limitando la calidad y reduciendo la carga de **FFmpeg** (invocado por `--recode-video mp4`).</li>
+                            </ul>
 
-      <h4>Función 3: <code>limpiar_salida_error(stderr_output)</code></h4>
-      <blockquote>
-        **Filtro de Ruido:** Filtra la salida de error (`stderr`) de `yt-dlp` para eliminar advertencias (`WARNING`) y centrarse en mostrar solo los mensajes de 'ERROR' relevantes al usuario en la consola de *logs*.
-      </blockquote>
-    </div>
+            <h4>Función 3: <code>limpiar_salida_error(stderr_output)</code></h4>
+            <blockquote>
+                        **Filtro de Ruido:** Filtra la salida de error (`stderr`) de `yt-dlp` para eliminar advertencias (`WARNING`) y centrarse en mostrar solo los mensajes de 'ERROR' relevantes al usuario en la consola de *logs*.
+                        </blockquote>
+        </div>
 
-    <div class="dialogue fade-in">
-      <h2>3. 🏃‍♂️ Funciones de Ejecución (`subprocess` y Errores)</h2>
-      
-      <p><span class="user">Usuario:</span> Hablemos de <code>descargar_audio_unico</code> y <code>descargar_audios_lote</code>. Aquí es donde se maneja la ejecución y los fallos. ¿Cuáles son los siete tipos de errores que el código está preparado para manejar?</p>
+        <div class="dialogue fade-in">
+            <h2>3. 🏃‍♂️ Funciones de Ejecución (`subprocess` y Errores)</h2>
+              
+            <p><span class="user">Usuario:</span> Hablemos de <code>descargar_audio_unico</code> y <code>descargar_audios_lote</code>. Aquí es donde se maneja la ejecución y los fallos. ¿Cuáles son los siete tipos de errores que el código está preparado para manejar?</p>
 
-      <p><span class="ia">IA:</span> Correcto. Estas funciones son el **motor de comando** y el **bloque de seguridad** del programa. 
+            <p><span class="ia">IA:</span> Correcto. Estas funciones son el **motor de comando** y el **bloque de seguridad** del programa. </p>
 
-[Image of Python Threading Diagram]
-</p>
+            <h3>Análisis de <code>descargar_audio_unico</code> y <code>subprocess.run()</code></h3>
+            <p>El corazón de la función es la llamada a **<code>subprocess.run()</code>**. Los argumentos clave garantizan el control y la seguridad:</p>
+            <ul>
+                            <li><code>check=True</code>: Lanza la excepción `subprocess.CalledProcessError` si `yt-dlp` termina con un código de error.</li>
+                            <li><code>capture_output=True</code>: Captura la salida estándar y la de errores para mostrarlas en el área de logs de la GUI.</li>
+                            <li><code>timeout=600</code>: **Red de seguridad**. Impide que el proceso se cuelgue indefinidamente, matándolo después de 10 minutos para evitar que la aplicación se congele permanentemente.</li>
+                            </ul>
 
-      <h3>Análisis de <code>descargar_audio_unico</code> y <code>subprocess.run()</code></h3>
-      <p>El corazón de la función es la llamada a **<code>subprocess.run()</code>**. Los argumentos clave garantizan el control y la seguridad:</p>
-      <ul>
-            <li><code>check=True</code>: Lanza la excepción `subprocess.CalledProcessError` si `yt-dlp` termina con un código de error.</li>
-            <li><code>capture_output=True</code>: Captura la salida estándar y la de errores para mostrarlas en el área de logs de la GUI.</li>
-            <li><code>timeout=600</code>: **Red de seguridad**. Impide que el proceso se cuelgue indefinidamente, matándolo después de 10 minutos para evitar que la aplicación se congele permanentemente.</li>
-      </ul>
+            <h3>La Matriz de Siete Errores Manejados</h3>
+            <p>El bloque `try...except` maneja siete posibles fallos que cubren problemas de código, de `yt-dlp` y de infraestructura:</p>
+            <ol>
+                            <li>**`subprocess.CalledProcessError`**: Error funcional (ej. URL no disponible). La salida de error (`e.stderr`) es procesada por **`limpiar_salida_error`**.</li>
+                            <li>**`FileNotFoundError`**: Error de infraestructura. Indica que el sistema no pudo encontrar el ejecutable de `yt-dlp` (problema de PATH o de empaquetado).</li>
+                            <li>**`subprocess.TimeoutExpired`**: El proceso se mató por exceder los 10 minutos.</li>
+                            <li>**`Exception as e`**: Captura genérica de cualquier error imprevisto.</li>
+                            <li>**Errores de URL o Carpeta No Válida** (Manejados con `messagebox` antes del proceso de descarga).</li>
+                            <li>**Archivo de URLs No Encontrado/Vacío** (Manejado en `descargar_audios_lote`).</li>
+                            </ol>
 
-      <h3>La Matriz de Siete Errores Manejados</h3>
-      <p>El bloque `try...except` maneja siete posibles fallos que cubren problemas de código, de `yt-dlp` y de infraestructura:</p>
-      <ol>
-            <li>**`subprocess.CalledProcessError`**: Error funcional (ej. URL no disponible). La salida de error (`e.stderr`) es procesada por **`limpiar_salida_error`**.</li>
-            <li>**`FileNotFoundError`**: Error de infraestructura. Indica que el sistema no pudo encontrar el ejecutable de `yt-dlp` (problema de PATH o de empaquetado).</li>
-            <li>**`subprocess.TimeoutExpired`**: El proceso se mató por exceder los 10 minutos.</li>
-            <li>**`Exception as e`**: Captura genérica de cualquier error imprevisto.</li>
-            <li>**Errores de URL o Carpeta No Válida** (Manejados con `messagebox` antes del proceso de descarga).</li>
-            <li>**Archivo de URLs No Encontrado/Vacío** (Manejado en `descargar_audios_lote`).</li>
-      </ol>
+            <h4>Advertencia Crítica: La Necesidad de `threading`</h4>
+            <p>Es vital señalar que las funciones **<code>iniciar_descarga_unico</code>** e **<code>iniciar_descarga</code>** en este código **llaman a las funciones de descarga directamente**. Puesto que `subprocess.run()` es un comando de bloqueo, si el código se ejecuta tal cual, la interfaz **se congelará** hasta que la descarga termine. La implementación correcta para una aplicación de GUI requiere envolver la llamada en un hilo separado (usando `threading.Thread`) para mantener la interfaz receptiva.</p>
+        </div>
 
-      <h4>Advertencia Crítica: La Necesidad de `threading`</h4>
-      <p>Es vital señalar que las funciones **<code>iniciar_descarga_unico</code>** e **<code>iniciar_descarga</code>** en este código **llaman a las funciones de descarga directamente**. Puesto que `subprocess.run()` es un comando de bloqueo, si el código se ejecuta tal cual, la interfaz **se congelará** hasta que la descarga termine. La implementación correcta para una aplicación de GUI requiere envolver la llamada en un hilo separado (usando `threading.Thread`) para mantener la interfaz receptiva.</p>
-    </div>
+        <div class="dialogue fade-in">
+            <h2>4. 🎨 La Interfaz de Usuario (Tkinter)</h2>
+              
+            <p><span class="user">Usuario:</span> Hablemos de la interfaz. ¿Cómo organiza el código la GUI y qué variables controlan el estado de la aplicación?</p>
 
-    <div class="dialogue fade-in">
-      <h2>4. 🎨 La Interfaz de Usuario (Tkinter)</h2>
-      
-      <p><span class="user">Usuario:</span> Hablemos de la interfaz. ¿Cómo organiza el código la GUI y qué variables controlan el estado de la aplicación?</p>
+            <p><span class="ia">IA:</span> La interfaz utiliza una estructura jerárquica clara y variables de control para gestionar el estado de la aplicación.</p>
 
-      <p><span class="ia">IA:</span> La interfaz utiliza una estructura jerárquica clara y variables de control para gestionar el estado de la aplicación.</p>
+            <h3>A. Variables de Control de Estado</h3>
+            <ul>
+                            <li>**`modo_descarga`**: `tk.StringVar` que almacena el valor seleccionado por los *Radiobuttons* ('audio' o 'video').</li>
+                            <li>**`calidad_descarga`**: `tk.StringVar` que almacena la calidad de video seleccionada (ej. '720p'), alimentando la lógica de `generar_opciones_ytdlp`.</li>
+                            </ul>
 
-      <h3>A. Variables de Control de Estado</h3>
-      <ul>
-            <li>**`modo_descarga`**: `tk.StringVar` que almacena el valor seleccionado por los *Radiobuttons* ('audio' o 'video').</li>
-            <li>**`calidad_descarga`**: `tk.StringVar` que almacena la calidad de video seleccionada (ej. '720p'), alimentando la lógica de `generar_opciones_ytdlp`.</li>
-      </ul>
+            <h3>B. Estructura de Marcos (`LabelFrame`)</h3>
+            <p>Se utilizan tres `tk.LabelFrame` para agrupar visualmente la configuración, lo que mejora la usabilidad:</p>
+            <ul>
+                            <li>**`frame_global`**: Contiene la Carpeta de Destino, el control de Modo de Descarga y la Selección de Calidad.</li>
+                            <li>**`frame_unico`**: Agrupa los controles para la descarga de una URL individual.</li>
+                            <li>**`frame_batch`**: Agrupa los controles para la descarga por lotes mediante archivo TXT.</li>
+                            </ul>
 
-      <h3>B. Estructura de Marcos (`LabelFrame`)</h3>
-      <p>Se utilizan tres `tk.LabelFrame` para agrupar visualmente la configuración, lo que mejora la usabilidad:</p>
-      <ul>
-            <li>**`frame_global`**: Contiene la Carpeta de Destino, el control de Modo de Descarga y la Selección de Calidad.</li>
-            <li>**`frame_unico`**: Agrupa los controles para la descarga de una URL individual.</li>
-            <li>**`frame_batch`**: Agrupa los controles para la descarga por lotes mediante archivo TXT.</li>
-      </ul>
+            <h3>C. El Área de Logs (`ScrolledText`)</h3>
+            <p>El widget **`text_output`** es el registro en vivo de la actividad. Las funciones de descarga escriben directamente el `stdout` de `yt-dlp` en este widget, usando **<code>text_output.see(tk.END)</code>** para desplazar la vista automáticamente al final, asegurando que el usuario siempre vea el progreso más reciente.</p>
+        </div>
 
-      <h3>C. El Área de Logs (`ScrolledText`)</h3>
-      <p>El widget **`text_output`** es el registro en vivo de la actividad. Las funciones de descarga escriben directamente el `stdout` de `yt-dlp` en este widget, usando **`text_output.see(tk.END)`** para desplazar la vista automáticamente al final, asegurando que el usuario siempre vea el progreso más reciente.</p>
-    </div>
+    </div>
 
-  </div>
+    <footer class="footer">
+        <p>© 2025 — Hecho con pensamiento crítico por <strong>KEVAO18 (Kevin Andrés Orrego Martínez)</strong></p>
+    </footer>
 
-    <footer class="footer">
-    <p>© 2025 — Hecho con pensamiento crítico por <strong>KEVAO18 (Kevin Andrés Orrego Martínez)</strong></p>
-  </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animaciones al hacer scroll
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeElements = document.querySelectorAll(".fade-in");
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Animaciones al hacer scroll
-    document.addEventListener("DOMContentLoaded", function () {
-      const fadeElements = document.querySelectorAll(".fade-in");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.1 });
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, { threshold: 0.1 });
-
-      fadeElements.forEach(el => observer.observe(el));
-    });
-  </script>
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
 
 </body>
 </html>
